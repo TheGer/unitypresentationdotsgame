@@ -11,7 +11,7 @@ public class squarecontroller : MonoBehaviour
     GameObject line;
     Material linematerial;
     Vector3 mousePosition, squarePosition;
-    GameObject movingCircle,myCircle;
+    GameObject movingCircle, myCircle;
     int clickcounter = 0;
     List<Vector3> squarepositions;
     int levelcounter = 1;
@@ -21,10 +21,10 @@ public class squarecontroller : MonoBehaviour
     {
         //copy a reference to the list of positions that are stored in waypointgenerator
         movingCircle = Resources.Load("Prefabs/MovingCircle") as GameObject;
-		myCircle = Instantiate(movingCircle, Vector3.zero, Quaternion.identity);
-		myCircle.GetComponent<SpriteRenderer>().enabled = false;
+        myCircle = Instantiate(movingCircle, Vector3.zero, Quaternion.identity);
+        myCircle.GetComponent<SpriteRenderer>().enabled = false;
         linematerial = Resources.Load("linematerial") as Material;
-		
+
     }
 
     public void drawLine(Vector3 startPoint, Vector3 endPoint)
@@ -63,20 +63,20 @@ public class squarecontroller : MonoBehaviour
     {
         if (circle != null)
         {
-			circle.GetComponent<SpriteRenderer>().enabled = true;
+            circle.GetComponent<SpriteRenderer>().enabled = true;
             for (int i = 1; i < positions.Count; i++)
             {
                 float distance = 0;
                 while (distance < 1f)
                 {
-					Debug.Log(positions[i]);
+                    Debug.Log(positions[i]);
                     circle.transform.position = Vector3.Lerp(circle.transform.position, positions[i], distance);
                     distance += 0.1f;
                     yield return new WaitForSeconds(0.1f);
                 }
                 yield return null;
             }
-           circle.GetComponent<SpriteRenderer>().enabled = false;
+            circle.GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 
@@ -114,14 +114,15 @@ public class squarecontroller : MonoBehaviour
                 {
                     hit.collider.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
 
-					//draw line to the previous box
-				
+                    //draw line to the previous box
+
 
                     clickcounter++;
-					Debug.Log(clickcounter);
-					if (clickcounter > 1){
-							drawLine(squarepositions[clickcounter-1],squarepositions[clickcounter-2]);
-					}
+                    Debug.Log(clickcounter);
+                    if (clickcounter > 1)
+                    {
+                        drawLine(squarepositions[clickcounter - 1], squarepositions[clickcounter - 2]);
+                    }
                 }
 
 
@@ -138,7 +139,7 @@ public class squarecontroller : MonoBehaviour
             {
                 clickcounter = 0;
                 //reset the scene and add a box
-                Camera.main.GetComponent<gamecontroller>().resetScene();	
+                Camera.main.GetComponent<gamecontroller>().resetScene();
                 //increase the level
                 levelcounter++;
                 //update the UI text with the level counter here
@@ -151,8 +152,8 @@ public class squarecontroller : MonoBehaviour
                 //I need to spawn the circle.
                 //place a circle in the first position
                 squarepositions = Camera.main.GetComponent<gamecontroller>().positions;
-				myCircle.transform.position = squarepositions[0];
-				StopAllCoroutines();
+                myCircle.transform.position = squarepositions[0];
+                StopAllCoroutines();
                 StartCoroutine(moveCircle(myCircle, squarepositions));
             }
         }
