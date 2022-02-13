@@ -96,6 +96,8 @@ public class squarecontroller : MonoBehaviour
 
         transform.position = squarePosition;
 
+
+        //left mouse button click
         if (Input.GetMouseButtonDown(0))
         {
             //Camera.main.GetComponent<waypointgenerator>().copySquare(squarePosition);
@@ -127,14 +129,7 @@ public class squarecontroller : MonoBehaviour
 
 
             }
-            //**** can only be red if it is the next number ****//
-            //TASK
-            /*
-			Create an animation that generates a small circle which at the start of each level,
-			travels slowly from one box to the next until it reaches the last box, after which
-			it disappears.  You may use a coroutine to perform this task
-			 */
-            //if all the squares are red
+            //check that all squares have been clicked
             if (checkallsquaresred())
             {
                 clickcounter = 0;
@@ -146,11 +141,9 @@ public class squarecontroller : MonoBehaviour
                 GameObject.Find("Level").GetComponent<Text>().text = "<b>" + levelcounter + "</b>";
             }
 
-            //ADD a counter as to how many times resetscene was called, and I want you to show it in the TOP RIGHT of the screen
+            //if it is level 2, then create a move circle coroutine
             if (levelcounter > 1)
             {
-                //I need to spawn the circle.
-                //place a circle in the first position
                 squarepositions = Camera.main.GetComponent<gamecontroller>().positions;
                 myCircle.transform.position = squarepositions[0];
                 StopAllCoroutines();
