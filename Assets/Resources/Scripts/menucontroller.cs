@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class menucontrol : MonoBehaviour {
+public class menucontroller : MonoBehaviour {
 
 
 	public void swapScene()
